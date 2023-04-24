@@ -1,8 +1,15 @@
 import { createApp } from 'vue'
 import './style.css'
 import App from './App.vue'
-import { setRouter } from './router'
+import router, { setRouter } from './router'
+import { setupPlugins } from './plugins'
 
-const app = createApp(App)
-setRouter(app)
-app.mount('#app')
+async function start() {
+  const app = createApp(App)
+  setRouter(app)
+  await router.isReady()
+  setupPlugins(app)
+  app.mount('#app')
+}
+
+start()
